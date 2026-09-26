@@ -1,0 +1,34 @@
+{
+  "jpeg": {
+    "url": "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.1/libjpeg-turbo-3.1.1.tar.gz",
+    "sha256": "aadc97ea91f6ef078b0ae3a62bba69e008d9a7db19b34e4ac973b19b71b4217c"
+  },
+  "png": {
+    "url": "https://github.com/pnggroup/libpng/archive/refs/tags/v1.6.50.tar.gz",
+    "sha256": "71158e53cfdf2877bc99bcab33641d78df3f48e6e0daad030afe9cb8c031aa46"
+  },
+  "webp": {
+    "url": "https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.6.0.tar.gz",
+    "sha256": "e4ab7009bf0629fd11982d4c2aa83964cf244cffba7347ecd39019a9e38c4564"
+  },
+  "tiff": {
+    "url": "https://download.osgeo.org/libtiff/tiff-4.7.0.tar.gz",
+    "sha256": "67160e3457365ab96c5b3286a0903aa6e78bdc44c4bc737d2e486bcecb6ba976"
+  },
+  "aom": {
+    "url": "https://storage.googleapis.com/aom-releases/libaom-3.12.1.tar.gz",
+    "sha256": "9e9775180dec7dfd61a79e00bda3809d43891aee6b2e331ff7f26986207ea22e"
+  },
+  "heif": {
+    "url": "https://github.com/strukturag/libheif/releases/download/v1.20.2/libheif-1.20.2.tar.gz",
+    "sha256": "68ac9084243004e0ef3633f184eeae85d615fe7e4444373a0a21cebccae9d12a"
+  },
+  "lcms": {
+    "url": "https://github.com/mm2/Little-CMS/releases/download/lcms2.17/lcms2-2.17.tar.gz",
+    "sha256": "d11af569e42a1baa1650d20ad61d12e41af4fead4aa7964a01f93b08b53ab074"
+  },
+  "freetype": {
+    "url": "https://downloads.sourceforge.net/project/freetype/freetype2/2.13.3/freetype-2.13.3.tar.gz",
+    "sha256": "5c3a8e78f7b24c20b25b54ee575d6daa40007a5f4eea2845861c3409b3021747"
+  }
+}

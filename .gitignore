@@ -98,3 +98,7 @@
 .libs
 Makefile
 Makefile.PL
+# iOS dependency build products
+/build/
+/dist/
+__pycache__/
