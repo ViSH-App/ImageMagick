@@ -22,14 +22,14 @@ if revision != source_config['revision']: raise RuntimeError('Source revision do
 compiler = capture([clang, '--version'])
 dirty = capture(['git','-C',str(source_root),'diff','--binary','HEAD'])
 if dirty: raise RuntimeError('Refusing to package modified ImageMagick source')
-key=hashlib.sha256((pathlib.Path(__file__).read_text()+json.dumps(manifest,sort_keys=True)+str(ROOT)+sdk+compiler+revision+dirty).encode()).hexdigest()
+key=hashlib.sha256((pathlib.Path(__file__).read_text()+json.dumps(manifest,sort_keys=True)+json.dumps(source_config,sort_keys=True)+str(out)+str(ROOT)+sdk+compiler+revision+dirty).encode()).hexdigest()
 products = {
  'jpeg': ('lib/libjpeg.a','include/jpeglib.h'), 'png': ('lib/libpng16.a','include/png.h'),
  'webp': ('lib/libwebp.a','include/webp/decode.h'), 'tiff': ('lib/libtiff.a','include/tiffio.h'),
  'aom': ('lib/libaom.a','include/aom/aom_codec.h'), 'heif': ('lib/libheif.a','include/libheif/heif.h'),
  'lcms': ('lib/liblcms2.a','include/lcms2.h'), 'freetype': ('lib/libfreetype.a','include/freetype2/ft2build.h')
 }
-required = [item for pair in products.values() for item in pair] + ['lib/libMagickCore-7.Q16HDRI.a','lib/libMagickWand-7.Q16HDRI.a','include/ImageMagick-7/MagickWand/MagickWand.h']
+required = [item for pair in products.values() for item in pair] + ['lib/libMagickCore-7.Q16HDRI.a','lib/libMagickWand-7.Q16HDRI.a','include/ImageMagick-7/MagickWand/MagickWand.h','lib/libwebpmux.a','lib/libwebpdemux.a','lib/libsharpyuv.a']
 stamp=out/'build-key'
 if stamp.exists() and stamp.read_text()==key and all((out/item).exists() for item in required): print('ImageMagick cache valid'); raise SystemExit(0)
 cache=ROOT/'build/imagemagick'; sources=cache/'sources'; sources.mkdir(parents=True,exist_ok=True)

@@ -51,10 +51,11 @@ jobs:
       - name: Verify relocated package
         run: python3 ios/verify.py --sdk '${{ matrix.sdk }}'
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: success() || failure()
         with:
           name: ${{ matrix.sdk }}
           path: dist/*
-          if-no-files-found: error
+          if-no-files-found: ignore
           retention-days: 1
       - name: Preserve failure logs
         if: failure()
