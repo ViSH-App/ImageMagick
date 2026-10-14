@@ -86,6 +86,7 @@ jobs:
       - name: Upload ChangeLog.md
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a #v7.0.1
         with:
+          retention-days: 1
           name: ChangeLog
           path: Artifacts
 
@@ -220,6 +221,7 @@ jobs:
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a #v7.0.1
         with:
+          retention-days: 1
           name: ImageMagick-${{needs.version.outputs.version}}-${{matrix.quantum}}${{matrix.hdri_flag}}-${{matrix.architecture}}-${{matrix.typeName}}.exe
           path: Configure\Installer\Inno\Artifacts
 
@@ -263,6 +265,7 @@ jobs:
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a #v7.0.1
         with:
+          retention-days: 1
           name: ImageMagick-${{needs.version.outputs.version}}-Windows.7z
           path: ImageMagick-${{needs.version.outputs.version}}-Windows.7z
 
@@ -351,6 +354,7 @@ jobs:
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a #v7.0.1
         with:
+          retention-days: 1
           name: ImageMagick-${{needs.version.outputs.version}}-portable-${{matrix.quantum}}${{matrix.hdri_flag}}-${{matrix.architecture}}.7z
           path: ImageMagick-${{needs.version.outputs.version}}-portable-${{matrix.quantum}}${{matrix.hdri_flag}}-${{matrix.architecture}}.7z
 
@@ -365,6 +369,7 @@ jobs:
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a #v7.0.1
         with:
+          retention-days: 1
           name: ImageMagick-${{needs.version.outputs.version}}-portable-${{matrix.quantum}}${{matrix.hdri_flag}}-${{matrix.architecture}}.cdx.json
           path: ImageMagick-${{needs.version.outputs.version}}-portable-${{matrix.quantum}}${{matrix.hdri_flag}}-${{matrix.architecture}}.cdx.json
 
@@ -445,6 +450,7 @@ jobs:
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a #v7.0.1
         with:
+          retention-days: 1
           name: ImageMagick.${{matrix.quantum}}${{matrix.hdri_flag}}.msixbundle
           path: Configure\Installer\Msix\Artifacts\ImageMagick.${{matrix.quantum}}${{matrix.hdri_flag}}.msixbundle
 
@@ -529,6 +535,7 @@ jobs:
       - name: Upload ImageMagick AppImage
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a #v7.0.1
         with:
+          retention-days: 1
           name: AppImage-${{matrix.compiler}}
           path: artifacts
 
@@ -598,6 +605,7 @@ jobs:
       - name: Upload source archive
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a #v7.0.1
         with:
+          retention-days: 1
           name: ImageMagick-${{needs.version.outputs.version}}.7z
           path: artifacts
 
