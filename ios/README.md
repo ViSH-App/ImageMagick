@@ -2,7 +2,7 @@
 
 Development lives on `ios-support`. The upstream `main` branch and its workflow files are unchanged. The upstream workflows are disabled in this fork's Actions settings; only `iOS static libraries` is enabled.
 
-`ios/source.json` pins the ImageMagick commit used by Clawsy, independently of the upstream source at the tip of this fork. `dependencies.json` pins eight delegate libraries by URL and SHA256. The build uses arm64, iOS 18.2, Q16 HDRI, static delegates, and zero-configuration mode. It does not load external XML, modules, or delegate programs. Apps must set their own security policy and supply explicit fonts.
+`ios/source.json` pins the ImageMagick commit used by Clawsy, independently of the upstream source at the tip of this fork. `dependencies.json` pins eight delegate libraries by URL and SHA256. The build uses arm64, iOS 18.2, `-Os` (CMake `MinSizeRel`) for ImageMagick and every delegate, Q16 HDRI, static delegates, and zero-configuration mode. It does not load external XML, modules, or delegate programs. Apps must set their own security policy and supply explicit fonts.
 
 ## Publish
 

@@ -36,7 +36,7 @@ cache=ROOT/'build/imagemagick'; sources=cache/'sources'; sources.mkdir(parents=T
 logs=out/'logs';logs.mkdir(exist_ok=True)
 target='arm64-apple-ios'+source_config['deployment_target']+('-simulator' if a.sdk=='iphonesimulator' else '')
 env=dict(os.environ, PATH='/opt/homebrew/bin:/usr/local/bin:'+os.environ['PATH'],CC=clang,CXX=clangxx,
- CFLAGS=f'-target {target} -isysroot {sdk} -O2 -fvisibility=hidden',CXXFLAGS=f'-target {target} -isysroot {sdk} -O2 -fvisibility=hidden',
+ CFLAGS=f'-target {target} -isysroot {sdk} -Os -fvisibility=hidden',CXXFLAGS=f'-target {target} -isysroot {sdk} -Os -fvisibility=hidden',
  CPPFLAGS=f'-I{out}/include',LDFLAGS=f'-target {target} -isysroot {sdk} -L{out}/lib',
  PKG_CONFIG_LIBDIR=str(out/'lib/pkgconfig'),PKG_CONFIG_PATH=str(out/'lib/pkgconfig'))
 env['ac_cv_func_getentropy']='no' # Apple declares getentropy without sys/random.h; use upstream fallback.
@@ -80,14 +80,14 @@ for name,dep in manifest.items():
  'freetype':['-DFT_DISABLE_HARFBUZZ=ON','-DFT_DISABLE_BROTLI=ON','-DFT_DISABLE_BZIP2=ON'],
  }.get(name,[])
  build=out/('build-'+name);build.mkdir(exist_ok=True)
- dependency_key=hashlib.sha256((json.dumps(manifest,sort_keys=True)+sdk+compiler+env['CFLAGS']+env['CXXFLAGS']+str(opts)+str(out)+'arm64-v2').encode()).hexdigest()
+ dependency_key=hashlib.sha256((json.dumps(manifest,sort_keys=True)+sdk+compiler+env['CFLAGS']+env['CXXFLAGS']+str(opts)+str(out)+'arm64-v3').encode()).hexdigest()
  done=build/'clawsy-installed'
  if done.exists() and done.read_text()==dependency_key and all((out/item).exists() for item in products[name]): continue
  if name=='lcms':
   run([str(source/'configure'),'--host=aarch64-apple-darwin','--disable-shared','--enable-static','--without-jpeg','--without-tiff','--prefix='+str(out)],name+'-configure',build)
   run(['make','-j4'],name+'-build',build);run(['make','install'],name+'-install',build)
  else:
-  run(['cmake','--fresh','-S',str(source),'-B',str(build),'-G','Ninja','-DCMAKE_SYSTEM_NAME=iOS','-DCMAKE_SYSTEM_PROCESSOR=arm64','-DCMAKE_OSX_SYSROOT='+sdk,'-DCMAKE_OSX_ARCHITECTURES=arm64','-DCMAKE_OSX_DEPLOYMENT_TARGET='+source_config['deployment_target'],'-DCMAKE_C_COMPILER='+clang,'-DCMAKE_CXX_COMPILER='+clangxx,'-DCMAKE_BUILD_TYPE=Release','-DCMAKE_INSTALL_PREFIX='+str(out),'-DCMAKE_PREFIX_PATH='+str(out),'-DBUILD_SHARED_LIBS=OFF','-DCMAKE_POLICY_VERSION_MINIMUM=3.5']+opts,name+'-configure')
+  run(['cmake','--fresh','-S',str(source),'-B',str(build),'-G','Ninja','-DCMAKE_SYSTEM_NAME=iOS','-DCMAKE_SYSTEM_PROCESSOR=arm64','-DCMAKE_OSX_SYSROOT='+sdk,'-DCMAKE_OSX_ARCHITECTURES=arm64','-DCMAKE_OSX_DEPLOYMENT_TARGET='+source_config['deployment_target'],'-DCMAKE_C_COMPILER='+clang,'-DCMAKE_CXX_COMPILER='+clangxx,'-DCMAKE_BUILD_TYPE=MinSizeRel','-DCMAKE_INSTALL_PREFIX='+str(out),'-DCMAKE_PREFIX_PATH='+str(out),'-DBUILD_SHARED_LIBS=OFF','-DCMAKE_POLICY_VERSION_MINIMUM=3.5']+opts,name+'-configure')
   run(['cmake','--build',str(build),'--parallel','4'],name+'-build',timeout=600)
   run(['cmake','--install',str(build)],name+'-install')
  done.write_text(dependency_key)
